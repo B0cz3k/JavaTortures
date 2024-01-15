@@ -4,8 +4,10 @@
  */
 package com.lukaszborak.javaproject1;
 
+import java.awt.Color;
 import java.io.File;
 import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
 public class MainPage extends javax.swing.JFrame {
@@ -84,6 +86,22 @@ public class MainPage extends javax.swing.JFrame {
 
         SimulationSave = new javax.swing.JFileChooser();
         SimulationLoad = new javax.swing.JFileChooser();
+        SimulationLoadPopUp = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        closeLoad = new javax.swing.JButton();
+        SimulationSavePopUp = new javax.swing.JDialog();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        closeSave = new javax.swing.JButton();
+        SimulationLoadFailedPopUp = new javax.swing.JDialog();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        closeLoadFailed = new javax.swing.JButton();
+        SimulationSaveFailedPopUp = new javax.swing.JDialog();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        closeSaveFailed = new javax.swing.JButton();
         MainPanel = new javax.swing.JPanel();
         DataTab = new javax.swing.JTabbedPane();
         UsersTab = new javax.swing.JPanel();
@@ -104,6 +122,8 @@ public class MainPage extends javax.swing.JFrame {
         SaveButton = new javax.swing.JButton();
         LoadButton = new javax.swing.JButton();
         ResumeButton = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        simStatus = new javax.swing.JLabel();
 
         SimulationSave.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         SimulationSave.setApproveButtonText("Save");
@@ -114,9 +134,9 @@ public class MainPage extends javax.swing.JFrame {
         SimulationSave.setBorder(javax.swing.BorderFactory.createEmptyBorder(80, 80, 80, 80));
         SimulationSave.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         SimulationSave.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        SimulationSave.setMaximumSize(new java.awt.Dimension(500, 350));
-        SimulationSave.setMinimumSize(new java.awt.Dimension(500, 350));
-        SimulationSave.setPreferredSize(new java.awt.Dimension(500, 350));
+        SimulationSave.setMaximumSize(new java.awt.Dimension(800, 500));
+        SimulationSave.setMinimumSize(new java.awt.Dimension(800, 500));
+        SimulationSave.setPreferredSize(new java.awt.Dimension(800, 500));
         SimulationSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SimulationSaveActionPerformed(evt);
@@ -126,17 +146,176 @@ public class MainPage extends javax.swing.JFrame {
         SimulationLoad.setApproveButtonText("Open");
         SimulationLoad.setApproveButtonToolTipText("");
         SimulationLoad.setDialogTitle("Load simulation state...");
+        SimulationLoad.setFileHidingEnabled(false);
         SimulationLoad.setSelectedFile(new java.io.File("C:\\Program Files\\NetBeans-20\\simulation.ser"));
         SimulationLoad.setToolTipText("");
         SimulationLoad.setBorder(javax.swing.BorderFactory.createEmptyBorder(80, 80, 80, 80));
-        SimulationLoad.setMaximumSize(new java.awt.Dimension(500, 350));
-        SimulationLoad.setMinimumSize(new java.awt.Dimension(500, 350));
-        SimulationLoad.setPreferredSize(new java.awt.Dimension(500, 350));
+        SimulationLoad.setMaximumSize(new java.awt.Dimension(800, 500));
+        SimulationLoad.setMinimumSize(new java.awt.Dimension(800, 500));
+        SimulationLoad.setPreferredSize(new java.awt.Dimension(800, 500));
         SimulationLoad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SimulationLoadActionPerformed(evt);
             }
         });
+
+        SimulationLoadPopUp.setTitle("Serialization");
+        SimulationLoadPopUp.setAlwaysOnTop(true);
+        SimulationLoadPopUp.setPreferredSize(new java.awt.Dimension(300, 200));
+        SimulationLoadPopUp.setResizable(false);
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Simulation loaded successfullly.");
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        closeLoad.setText("OK");
+        closeLoad.setMaximumSize(new java.awt.Dimension(100, 35));
+        closeLoad.setMinimumSize(new java.awt.Dimension(100, 35));
+        closeLoad.setPreferredSize(new java.awt.Dimension(100, 35));
+        closeLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeLoadActionPerformed(evt);
+            }
+        });
+        jPanel1.add(closeLoad, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout SimulationLoadPopUpLayout = new javax.swing.GroupLayout(SimulationLoadPopUp.getContentPane());
+        SimulationLoadPopUp.getContentPane().setLayout(SimulationLoadPopUpLayout);
+        SimulationLoadPopUpLayout.setHorizontalGroup(
+            SimulationLoadPopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SimulationLoadPopUpLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        SimulationLoadPopUpLayout.setVerticalGroup(
+            SimulationLoadPopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SimulationLoadPopUpLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        SimulationSavePopUp.setTitle("Serialization");
+        SimulationSavePopUp.setAlwaysOnTop(true);
+        SimulationSavePopUp.setPreferredSize(new java.awt.Dimension(300, 200));
+        SimulationSavePopUp.setResizable(false);
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Simulation saved successfullly.");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        closeSave.setText("OK");
+        closeSave.setMaximumSize(new java.awt.Dimension(100, 35));
+        closeSave.setMinimumSize(new java.awt.Dimension(100, 35));
+        closeSave.setPreferredSize(new java.awt.Dimension(100, 35));
+        closeSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeSaveActionPerformed(evt);
+            }
+        });
+        jPanel2.add(closeSave, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout SimulationSavePopUpLayout = new javax.swing.GroupLayout(SimulationSavePopUp.getContentPane());
+        SimulationSavePopUp.getContentPane().setLayout(SimulationSavePopUpLayout);
+        SimulationSavePopUpLayout.setHorizontalGroup(
+            SimulationSavePopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SimulationSavePopUpLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        SimulationSavePopUpLayout.setVerticalGroup(
+            SimulationSavePopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SimulationSavePopUpLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        SimulationLoadFailedPopUp.setTitle("Serialization");
+        SimulationLoadFailedPopUp.setAlwaysOnTop(true);
+        SimulationLoadFailedPopUp.setResizable(false);
+
+        jLabel3.setText("Can't load simulation file.");
+
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        closeLoadFailed.setText("OK");
+        closeLoadFailed.setMaximumSize(new java.awt.Dimension(100, 35));
+        closeLoadFailed.setMinimumSize(new java.awt.Dimension(100, 35));
+        closeLoadFailed.setPreferredSize(new java.awt.Dimension(100, 35));
+        closeLoadFailed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeLoadFailedActionPerformed(evt);
+            }
+        });
+        jPanel3.add(closeLoadFailed, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout SimulationLoadFailedPopUpLayout = new javax.swing.GroupLayout(SimulationLoadFailedPopUp.getContentPane());
+        SimulationLoadFailedPopUp.getContentPane().setLayout(SimulationLoadFailedPopUpLayout);
+        SimulationLoadFailedPopUpLayout.setHorizontalGroup(
+            SimulationLoadFailedPopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SimulationLoadFailedPopUpLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jLabel3)
+                .addGap(56, 56, 56))
+        );
+        SimulationLoadFailedPopUpLayout.setVerticalGroup(
+            SimulationLoadFailedPopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SimulationLoadFailedPopUpLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        SimulationSaveFailedPopUp.setTitle("Serialization");
+        SimulationSaveFailedPopUp.setAlwaysOnTop(true);
+        SimulationSaveFailedPopUp.setResizable(false);
+
+        jLabel4.setText("Can't save simulation file.");
+
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        closeSaveFailed.setText("OK");
+        closeSaveFailed.setMaximumSize(new java.awt.Dimension(100, 35));
+        closeSaveFailed.setMinimumSize(new java.awt.Dimension(100, 35));
+        closeSaveFailed.setPreferredSize(new java.awt.Dimension(100, 35));
+        closeSaveFailed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeSaveFailedActionPerformed(evt);
+            }
+        });
+        jPanel4.add(closeSaveFailed, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout SimulationSaveFailedPopUpLayout = new javax.swing.GroupLayout(SimulationSaveFailedPopUp.getContentPane());
+        SimulationSaveFailedPopUp.getContentPane().setLayout(SimulationSaveFailedPopUpLayout);
+        SimulationSaveFailedPopUpLayout.setHorizontalGroup(
+            SimulationSaveFailedPopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SimulationSaveFailedPopUpLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jLabel4)
+                .addGap(56, 56, 56))
+        );
+        SimulationSaveFailedPopUpLayout.setVerticalGroup(
+            SimulationSaveFailedPopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SimulationSaveFailedPopUpLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JavaTube");
@@ -173,7 +352,7 @@ public class MainPage extends javax.swing.JFrame {
             UsersTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UsersTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(UsersScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE))
+                .addComponent(UsersScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
         );
 
         DataTab.addTab("Users", UsersTab);
@@ -206,7 +385,7 @@ public class MainPage extends javax.swing.JFrame {
             MediaTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MediaTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(MediaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+                .addComponent(MediaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -240,7 +419,7 @@ public class MainPage extends javax.swing.JFrame {
             ChannelsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ChannelsTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ChannelsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+                .addComponent(ChannelsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -287,7 +466,7 @@ public class MainPage extends javax.swing.JFrame {
                     .addGroup(MainPanelLayout.createSequentialGroup()
                         .addComponent(SearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DataTab, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE))
+                        .addComponent(DataTab, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -342,6 +521,15 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Status:");
+        jLabel5.setPreferredSize(new java.awt.Dimension(50, 30));
+
+        simStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        simStatus.setForeground(java.awt.Color.red);
+        simStatus.setText("Simulation stopped");
+        simStatus.setPreferredSize(new java.awt.Dimension(150, 30));
+
         javax.swing.GroupLayout NavigationPanelLayout = new javax.swing.GroupLayout(NavigationPanel);
         NavigationPanel.setLayout(NavigationPanelLayout);
         NavigationPanelLayout.setHorizontalGroup(
@@ -357,7 +545,11 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LoadButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(368, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(simStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         NavigationPanelLayout.setVerticalGroup(
             NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,7 +560,9 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(StopButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LoadButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ResumeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ResumeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(simStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -396,19 +590,29 @@ public class MainPage extends javax.swing.JFrame {
 
     private void StartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartButtonActionPerformed
         simulation.start();
+        simStatus.setForeground(Color.GREEN);
+        simStatus.setText("Simulation running");
     }//GEN-LAST:event_StartButtonActionPerformed
 
     private void StopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StopButtonActionPerformed
         simulation.stop();
+        simStatus.setForeground(Color.RED);
+        simStatus.setText("Simulation stopped");
     }//GEN-LAST:event_StopButtonActionPerformed
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
+        simulation.stop();
+        simStatus.setForeground(Color.RED);
+        simStatus.setText("Simulation stopped");
         SwingUtilities.invokeLater(() -> {
             SimulationSave.showOpenDialog(null);
         });
     }//GEN-LAST:event_SaveButtonActionPerformed
 
     private void LoadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadButtonActionPerformed
+        simulation.stop();
+        simStatus.setForeground(Color.RED);
+        simStatus.setText("Simulation stopped");
         SwingUtilities.invokeLater(() -> {
             SimulationLoad.showOpenDialog(null);
         });
@@ -456,14 +660,53 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_ResumeButtonActionPerformed
 
     private void SimulationSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimulationSaveActionPerformed
+        boolean result = false;
         File selectedFile = SimulationSave.getSelectedFile();
-        simulation.save(selectedFile.getName());
+        result = simulation.save(selectedFile.getName());
+        if (result) {
+            SimulationSavePopUp.setLocationRelativeTo(this);
+            SimulationSavePopUp.pack();
+            SimulationSavePopUp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            SimulationSavePopUp.setVisible(true);
+        } else {
+            SimulationSaveFailedPopUp.setLocationRelativeTo(this);
+            SimulationSaveFailedPopUp.pack();
+            SimulationSaveFailedPopUp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            SimulationSaveFailedPopUp.setVisible(true);
+        }
     }//GEN-LAST:event_SimulationSaveActionPerformed
 
     private void SimulationLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimulationLoadActionPerformed
         File selectedFile = SimulationLoad.getSelectedFile();
-        simulation.load(selectedFile.getName());
+        Simulation result = simulation.load(selectedFile.getName());
+        if (result != null) {
+            SimulationLoadPopUp.setLocationRelativeTo(this);
+            SimulationLoadPopUp.pack();
+            SimulationLoadPopUp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            SimulationLoadPopUp.setVisible(true);
+        } else {
+            SimulationLoadFailedPopUp.setLocationRelativeTo(this);
+            SimulationLoadFailedPopUp.pack();
+            SimulationLoadFailedPopUp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            SimulationLoadFailedPopUp.setVisible(true);
+        }
     }//GEN-LAST:event_SimulationLoadActionPerformed
+
+    private void closeLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeLoadActionPerformed
+        SimulationLoadPopUp.setVisible(false);
+    }//GEN-LAST:event_closeLoadActionPerformed
+
+    private void closeSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeSaveActionPerformed
+        SimulationSavePopUp.setVisible(false);
+    }//GEN-LAST:event_closeSaveActionPerformed
+
+    private void closeLoadFailedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeLoadFailedActionPerformed
+        SimulationLoadFailedPopUp.setVisible(false);
+    }//GEN-LAST:event_closeLoadFailedActionPerformed
+
+    private void closeSaveFailedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeSaveFailedActionPerformed
+        SimulationSaveFailedPopUp.setVisible(false);
+    }//GEN-LAST:event_closeSaveFailedActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> ChannelsList;
@@ -481,12 +724,30 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JButton SaveButton;
     private javax.swing.JTextField SearchBar;
     private javax.swing.JFileChooser SimulationLoad;
+    private javax.swing.JDialog SimulationLoadFailedPopUp;
+    private javax.swing.JDialog SimulationLoadPopUp;
     private javax.swing.JFileChooser SimulationSave;
+    private javax.swing.JDialog SimulationSaveFailedPopUp;
+    private javax.swing.JDialog SimulationSavePopUp;
     private javax.swing.JButton StartButton;
     private javax.swing.JButton StopButton;
     private javax.swing.JList<String> UsersList;
     private javax.swing.JScrollPane UsersScrollPane;
     private javax.swing.JPanel UsersTab;
+    private javax.swing.JButton closeLoad;
+    private javax.swing.JButton closeLoadFailed;
+    private javax.swing.JButton closeSave;
+    private javax.swing.JButton closeSaveFailed;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel simStatus;
     // End of variables declaration//GEN-END:variables
 }

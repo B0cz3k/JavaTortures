@@ -21,7 +21,7 @@ class Simulation implements Serializable {
     private List<User> users;
     private List<Channel> channels;
     private volatile List<Media> media;
-    private volatile List<Thread> threads;
+    private volatile transient List<Thread> threads;
     private Semaphore semaphore; //unused yet
     private boolean active;
 
@@ -102,16 +102,28 @@ class Simulation implements Serializable {
     
     public void resume() {
         this.active = true;
+        for (User user : users) {
+            Thread userThread = new Thread(user);
+            threads.add(userThread);
+            userThread.start();
+        }
+        for (Channel channel : channels) {
+            Thread channelThread = new Thread(channel);
+            threads.add(channelThread);
+            channelThread.start();
+        }
     }
     public void stop() {
         this.active = false;
     }
-    public void save(String filename) {
+    public boolean save(String filename) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
             oos.writeObject(this);
             System.out.println("Simulation saved successfully.");
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
     }
     public Simulation load(String filename) {

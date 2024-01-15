@@ -15,13 +15,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 class User implements Runnable, Serializable {
-    private volatile Simulation simulation;
-    private String thumbnail;
-    private String name;
-    private Date joinDate;
+    private final Simulation simulation;
+    private final String thumbnail;
+    private final String name;
+    private final Date joinDate;
     private Channel myChannel;
     private List<Channel> followingChannels;
-    private boolean premium;
+    private final boolean premium;
     private volatile Media currentMedia;
     private volatile Queue<Media> queue;
 
@@ -51,11 +51,11 @@ class User implements Runnable, Serializable {
         String string_myChannel = "-";
         for (Channel channel : this.followingChannels) {
             string_channels += "\n";
-            string_channels += channel.getName();
+            string_channels = string_channels + " - " + channel.getName();
         }
         for (Media media : this.queue) {
             string_queue += "\n";
-            string_queue += media.getName();
+            string_queue = string_queue + " - " + media.getName();
         }
         if (this.currentMedia != null) {
             current = this.currentMedia.getName();
@@ -93,11 +93,12 @@ class User implements Runnable, Serializable {
                                     }
                                     if (this.currentMedia instanceof Stream stream) { // increment the views / currently watching
                                         stream.watching();
+                                        Thread.sleep(1000);
                                     } else {
                                         Video video = (Video) currentMedia;
                                         video.viewed();
+                                        Thread.sleep(500);
                                     }
-                                    Thread.sleep(1000);
                                     if (this.currentMedia instanceof Stream stream) {
                                         stream.leaving();
                                     }

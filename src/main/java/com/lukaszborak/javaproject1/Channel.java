@@ -13,9 +13,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 class Channel implements Runnable, Serializable {
+    private final int id;
     private final Simulation simulation;
-    private User owner;
-    private String name;
+    private final User owner;
+    private final String name;
     private List<User> followers;
     private List<Media> myVideos;
     
@@ -77,7 +78,8 @@ class Channel implements Runnable, Serializable {
     );
     private static final Random random = new Random();
     
-    public Channel(Simulation sim, User owner, String nm) {
+    public Channel(int index, Simulation sim, User owner, String nm) {
+        this.id = index;
         this.simulation = sim;
         this.owner = owner;
         this.name = nm;
@@ -115,7 +117,7 @@ class Channel implements Runnable, Serializable {
             int index = random.nextInt(VIDEO_TITLES.size());
             String videoTitle = VIDEO_TITLES.get(index);
             String videoDescription = VIDEO_DESCRIPTIONS.get(index);
-            Video video = new Video(this, "thumbnail soon", videoTitle + i, videoDescription, random.nextInt(30) + 1, new Date(), random.nextBoolean());
+            Video video = new Video(this, "code2.jpg", videoTitle + i + this.id, videoDescription, random.nextInt(30) + 1, new Date(), random.nextBoolean());
             this.myVideos.add(video); // add to the channel's list of videos
             this.simulation.addMedia(video); // add video to media list in simulation
             notifyFollowers(video); // notify all folowers that a new video has been posted
@@ -123,7 +125,7 @@ class Channel implements Runnable, Serializable {
             int index = random.nextInt(STREAM_TITLES.size());
             String streamTitle = STREAM_TITLES.get(index);
             String streamDescription = STREAM_DESCRIPTIONS.get(index);
-            Stream stream = new Stream(this, "thumbnail soon", streamTitle + i, streamDescription, new Date());
+            Stream stream = new Stream(this, "code.jpg", streamTitle + i + this.id, streamDescription, new Date());
             this.myVideos.add(stream); // add to the channel's list of videos
             this.simulation.addMedia(stream); // add stream to media list in simulation
             notifyFollowers(stream); // notify all folowers that a new video has been posted
@@ -135,11 +137,11 @@ class Channel implements Runnable, Serializable {
         String string_videos = "";
         for (User follower : this.followers) {
             string_followers += "\n";
-            string_followers += follower.getName();
+            string_followers = string_followers + " - " + follower.getName();
         }
         for (Media med : this.myVideos) {
             string_videos += "\n";
-            string_videos += med.getName();
+            string_videos = string_videos + " - " + med.getName();
         }
         return "Name: " + this.name + "\nOwner: " + this.owner.getName() + 
                 "\nNumber of followers: " + this.followers.size() + 
@@ -166,12 +168,12 @@ class Channel implements Runnable, Serializable {
         }
         while (simulation.Active()) {
             try {
-                if (random.nextFloat() > 0.7) { // publishing at random moments
+                if (random.nextFloat() > 0.6) { // publishing at random moments
                     synchronized(this.simulation) {
                         publish(counter);
                     }
                     counter += 1;
-                    if (random.nextFloat() > 0.7) { // channel decides to end the stream
+                    if (random.nextFloat() > 0.6) { // channel decides to end the stream
                         List<Stream> activeStreams = getActiveStreams();
                         if (!activeStreams.isEmpty()) {
                             int randomIndex = random.nextInt(activeStreams.size());
@@ -180,7 +182,7 @@ class Channel implements Runnable, Serializable {
                         }
                     }
                 }
-                Thread.sleep(1000);
+                Thread.sleep(800);
             } catch (InterruptedException ex) {
                 Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
             }

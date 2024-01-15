@@ -7,12 +7,12 @@ package com.lukaszborak.javaproject1;
 import java.io.Serializable;
 
 class Media implements Serializable {
-    private Channel channel;
-    private String thumbnail;
-    private String name;
-    private String description;
+    private final Channel channel;
+    private final String thumbnail;
+    private final String name;
+    private final String description;
     private volatile int numLikes;
-    private boolean premium;
+    private final boolean premium;
 
     public Media(Channel ch, String thumb, String nm, String desc, boolean prem) {
         this.channel = ch;

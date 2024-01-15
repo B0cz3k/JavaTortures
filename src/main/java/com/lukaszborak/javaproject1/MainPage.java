@@ -5,8 +5,12 @@
 package com.lukaszborak.javaproject1;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
@@ -79,6 +83,13 @@ public class MainPage extends javax.swing.JFrame {
         String selectedValue = MediaList.getSelectedValue();
         PrintDetails(simulation.getDetails(selectedValue));
     }
+    private void printThumbnail(String filename) {
+        if (filename != null) {
+            System.out.println(filename);
+            //ImageIcon icon = new ImageIcon(getClass().getResource("/com/lukaszborak/javaproject1/" + filename));
+            //thumbnail.setIcon(icon);
+        }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -114,6 +125,7 @@ public class MainPage extends javax.swing.JFrame {
         ChannelsScrollPane = new javax.swing.JScrollPane();
         ChannelsList = new javax.swing.JList<>();
         SearchBar = new javax.swing.JTextField();
+        thumbnail = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Details = new javax.swing.JTextArea();
         NavigationPanel = new javax.swing.JPanel();
@@ -161,7 +173,6 @@ public class MainPage extends javax.swing.JFrame {
 
         SimulationLoadPopUp.setTitle("Serialization");
         SimulationLoadPopUp.setAlwaysOnTop(true);
-        SimulationLoadPopUp.setPreferredSize(new java.awt.Dimension(300, 200));
         SimulationLoadPopUp.setResizable(false);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -201,7 +212,6 @@ public class MainPage extends javax.swing.JFrame {
 
         SimulationSavePopUp.setTitle("Serialization");
         SimulationSavePopUp.setAlwaysOnTop(true);
-        SimulationSavePopUp.setPreferredSize(new java.awt.Dimension(300, 200));
         SimulationSavePopUp.setResizable(false);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -376,17 +386,13 @@ public class MainPage extends javax.swing.JFrame {
         MediaTab.setLayout(MediaTabLayout);
         MediaTabLayout.setHorizontalGroup(
             MediaTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MediaTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(MediaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(MediaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
         );
         MediaTabLayout.setVerticalGroup(
             MediaTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MediaTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(MediaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(MediaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
         );
 
         DataTab.addTab("Media", MediaTab);
@@ -410,17 +416,13 @@ public class MainPage extends javax.swing.JFrame {
         ChannelsTab.setLayout(ChannelsTabLayout);
         ChannelsTabLayout.setHorizontalGroup(
             ChannelsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ChannelsTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ChannelsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(ChannelsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
         );
         ChannelsTabLayout.setVerticalGroup(
             ChannelsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ChannelsTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ChannelsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(ChannelsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
         );
 
         DataTab.addTab("Channels", ChannelsTab);
@@ -440,6 +442,10 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
+        thumbnail.setMaximumSize(new java.awt.Dimension(200, 70));
+        thumbnail.setMinimumSize(new java.awt.Dimension(200, 70));
+        thumbnail.setPreferredSize(new java.awt.Dimension(200, 70));
+
         Details.setColumns(20);
         Details.setLineWrap(true);
         Details.setRows(5);
@@ -455,19 +461,25 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(DataTab)
                     .addComponent(SearchBar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addComponent(thumbnail, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)))
                 .addContainerGap())
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MainPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(SearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DataTab, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
                     .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addComponent(SearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(thumbnail, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DataTab, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
         );
 
@@ -581,7 +593,6 @@ public class MainPage extends javax.swing.JFrame {
         };
         String searchTerm = SearchBar.getText();
         if (searchTerm.isEmpty()) {
-            // Restore the original model when the search term is empty
             chosenJList.setModel(originalModelForTab(activeTab));
         } else {
             searchFilter(searchTerm, chosenJList);
@@ -621,6 +632,7 @@ public class MainPage extends javax.swing.JFrame {
     private void MediaListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_MediaListValueChanged
         if (!evt.getValueIsAdjusting()) {
             String selectedValue = MediaList.getSelectedValue();
+            printThumbnail(simulation.getThumbnail(selectedValue));
             PrintDetails(simulation.getDetails(selectedValue));
         }
     }//GEN-LAST:event_MediaListValueChanged
@@ -628,6 +640,7 @@ public class MainPage extends javax.swing.JFrame {
     private void UsersListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_UsersListValueChanged
         if (!evt.getValueIsAdjusting()) {
             String selectedValue = UsersList.getSelectedValue();
+            printThumbnail(simulation.getThumbnail(selectedValue));
             PrintDetails(simulation.getDetails(selectedValue));
         }
     }//GEN-LAST:event_UsersListValueChanged
@@ -656,13 +669,15 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_DataTabStateChanged
 
     private void ResumeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResumeButtonActionPerformed
+        simStatus.setForeground(Color.GREEN);
+        simStatus.setText("Simulation running");
         simulation.resume();
     }//GEN-LAST:event_ResumeButtonActionPerformed
 
     private void SimulationSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimulationSaveActionPerformed
         boolean result = false;
         File selectedFile = SimulationSave.getSelectedFile();
-        result = simulation.save(selectedFile.getName());
+        result = simulation.save(selectedFile.getAbsolutePath());
         if (result) {
             SimulationSavePopUp.setLocationRelativeTo(this);
             SimulationSavePopUp.pack();
@@ -678,7 +693,7 @@ public class MainPage extends javax.swing.JFrame {
 
     private void SimulationLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimulationLoadActionPerformed
         File selectedFile = SimulationLoad.getSelectedFile();
-        Simulation result = simulation.load(selectedFile.getName());
+        Simulation result = simulation.load(selectedFile.getAbsolutePath());
         if (result != null) {
             SimulationLoadPopUp.setLocationRelativeTo(this);
             SimulationLoadPopUp.pack();
@@ -749,5 +764,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel simStatus;
+    private javax.swing.JLabel thumbnail;
     // End of variables declaration//GEN-END:variables
 }

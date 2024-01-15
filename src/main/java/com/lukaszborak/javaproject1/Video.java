@@ -8,8 +8,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 class Video extends Media implements Serializable {
-    private int duration;
-    private Date uploadDate;
+    private final int duration;
+    private final Date uploadDate;
     private volatile int numViews;
 
     public Video(Channel ch, String thumb, String nm, String desc, int time, Date date, boolean prem) {
@@ -24,7 +24,7 @@ class Video extends Media implements Serializable {
         return getThumbnail() + "\nPosted on channel: " + getChannel().getName() + 
                 "\nTitle: " + getName() + "\nDescription: " + 
                 getDescription() + "\nUpload date: " + this.uploadDate + 
-                "\nDuration: " + this.duration + "\nViews: " + this.numViews + 
+                "\nDuration: " + this.duration + " minutes\nViews: " + this.numViews + 
                 "\nLikes: " + getNumLikes() + "\nPremium? " + isPremium() + "\n";
     }
     public void viewed() {

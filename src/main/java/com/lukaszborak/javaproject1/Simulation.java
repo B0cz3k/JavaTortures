@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 class Simulation implements Serializable {
@@ -22,7 +23,6 @@ class Simulation implements Serializable {
     private List<Channel> channels;
     private volatile List<Media> media;
     private volatile transient List<Thread> threads;
-    private Semaphore semaphore; //unused yet
     private boolean active;
 
     private static final List<String> USER_NAMES = List.of(
@@ -41,7 +41,6 @@ class Simulation implements Serializable {
         this.users = new ArrayList<>();
         this.channels = new ArrayList<>();
         this.media = new ArrayList<>();
-        this.semaphore = new Semaphore(1);
         this.threads = new ArrayList<>();
         this.active = false;
     }
@@ -72,7 +71,7 @@ class Simulation implements Serializable {
         int numChannels = random.nextInt(numUsers-10) + 10;
         for (int i = 0; i < numUsers; i++) {
             String userName = USER_NAMES.get(random.nextInt(USER_NAMES.size()));
-            User user = new User(this, "thumbnail soon", userName + i, new Date(), random.nextBoolean());
+            User user = new User(this, "animal.jpg", userName + i, new Date(), random.nextBoolean());
             users.add(user);
             Thread userThread = new Thread(user);
             threads.add(userThread);
@@ -82,7 +81,7 @@ class Simulation implements Serializable {
             String channelName = CHANNEL_NAMES.get(random.nextInt(CHANNEL_NAMES.size()));
             User userWithoutChannel = getRandomUserWithoutChannel();
             if (userWithoutChannel != null) {
-                Channel channel = new Channel(this, userWithoutChannel, channelName + i);
+                Channel channel = new Channel(i, this, userWithoutChannel, channelName + i);
                 userWithoutChannel.setChannel(channel); // assign the channel to user
                 channels.add(channel);
                 Thread channelThread = new Thread(channel);
@@ -99,7 +98,6 @@ class Simulation implements Serializable {
             }
         }
     }
-    
     public void resume() {
         this.active = true;
         for (User user : users) {
@@ -119,20 +117,18 @@ class Simulation implements Serializable {
     public boolean save(String filename) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
             oos.writeObject(this);
-            System.out.println("Simulation saved successfully.");
             return true;
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
     public Simulation load(String filename) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
             Simulation loadedSimulation = (Simulation) ois.readObject();
-            System.out.println("Simulation loaded successfully.");
             return loadedSimulation;
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
@@ -178,6 +174,21 @@ class Simulation implements Serializable {
             }
         }
         return "Entity details will appear here...";
+    }
+    
+    /* Thumbnail functionality */
+    public String getThumbnail(String name) {
+        for (Media med : media) {
+            if (med.getName().equals(name)) {
+                return med.getThumbnail();
+            }
+        }
+        for (User user : users) {
+            if (user.getName().equals(name)) {
+                return user.getThumbnail();
+            }
+        }
+        return null;
     }
     
     public List getUsers() {

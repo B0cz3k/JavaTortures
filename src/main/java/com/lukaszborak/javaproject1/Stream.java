@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 class Stream extends Media implements Serializable{
-    private Date startTime;
+    private final Date startTime;
     private volatile Date endTime;
     private volatile int numWatching;
 

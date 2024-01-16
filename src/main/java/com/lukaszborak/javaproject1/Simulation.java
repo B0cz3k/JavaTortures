@@ -67,11 +67,11 @@ class Simulation implements Serializable {
     public void start() {
         // Initial setup
         this.active = true;
-        int numUsers = random.nextInt(91) + 10;
-        int numChannels = random.nextInt(numUsers-10) + 10;
+        int numUsers = random.nextInt(61) + 30;
+        int numChannels = random.nextInt(numUsers-29) + 10;
         for (int i = 0; i < numUsers; i++) {
             String userName = USER_NAMES.get(random.nextInt(USER_NAMES.size()));
-            User user = new User(this, "animal.jpg", userName + i, new Date(), random.nextBoolean());
+            User user = new User(this, "thumbnail.png", userName + i, new Date(), random.nextBoolean());
             users.add(user);
             Thread userThread = new Thread(user);
             threads.add(userThread);
@@ -99,16 +99,24 @@ class Simulation implements Serializable {
         }
     }
     public void resume() {
-        this.active = true;
-        for (User user : users) {
-            Thread userThread = new Thread(user);
-            threads.add(userThread);
-            userThread.start();
-        }
-        for (Channel channel : channels) {
-            Thread channelThread = new Thread(channel);
-            threads.add(channelThread);
-            channelThread.start();
+        if (this.active == false) {
+            this.active = true;
+            for (User user : users) {
+                    user.updateSimulation(this);
+            }
+            for (User user : users) {
+                Thread userThread = new Thread(user);
+                threads.add(userThread);
+                userThread.start();
+            }
+            for (Channel channel : channels) {
+                    channel.updateSimulation(this);
+            }
+            for (Channel channel : channels) {
+                Thread channelThread = new Thread(channel);
+                threads.add(channelThread);
+                channelThread.start();
+            }
         }
     }
     public void stop() {
@@ -126,6 +134,10 @@ class Simulation implements Serializable {
     public Simulation load(String filename) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
             Simulation loadedSimulation = (Simulation) ois.readObject();
+            this.users = loadedSimulation.users;
+            this.channels = loadedSimulation.channels;
+            this.media = loadedSimulation.media;
+            this.active = loadedSimulation.active;
             return loadedSimulation;
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);

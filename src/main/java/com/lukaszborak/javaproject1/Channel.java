@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 class Channel implements Runnable, Serializable {
     private final int id;
-    private final Simulation simulation;
+    private Simulation simulation;
     private final User owner;
     private final String name;
     private List<User> followers;
@@ -87,6 +87,10 @@ class Channel implements Runnable, Serializable {
         this.myVideos = new ArrayList<>();
     }
     
+    public void updateSimulation(Simulation sim) {
+        this.simulation = sim;
+    }
+    
     public void addFollower(User user) {
         if (!this.followers.contains(user)) {
             this.followers.add(user);
@@ -117,7 +121,7 @@ class Channel implements Runnable, Serializable {
             int index = random.nextInt(VIDEO_TITLES.size());
             String videoTitle = VIDEO_TITLES.get(index);
             String videoDescription = VIDEO_DESCRIPTIONS.get(index);
-            Video video = new Video(this, "code2.jpg", videoTitle + i + this.id, videoDescription, random.nextInt(30) + 1, new Date(), random.nextBoolean());
+            Video video = new Video(this, "thumbnail.png", videoTitle + i + this.id, videoDescription, random.nextInt(30) + 1, new Date(), random.nextBoolean());
             this.myVideos.add(video); // add to the channel's list of videos
             this.simulation.addMedia(video); // add video to media list in simulation
             notifyFollowers(video); // notify all folowers that a new video has been posted
@@ -125,7 +129,7 @@ class Channel implements Runnable, Serializable {
             int index = random.nextInt(STREAM_TITLES.size());
             String streamTitle = STREAM_TITLES.get(index);
             String streamDescription = STREAM_DESCRIPTIONS.get(index);
-            Stream stream = new Stream(this, "code.jpg", streamTitle + i + this.id, streamDescription, new Date());
+            Stream stream = new Stream(this, "thumbnail.png", streamTitle + i + this.id, streamDescription, new Date());
             this.myVideos.add(stream); // add to the channel's list of videos
             this.simulation.addMedia(stream); // add stream to media list in simulation
             notifyFollowers(stream); // notify all folowers that a new video has been posted

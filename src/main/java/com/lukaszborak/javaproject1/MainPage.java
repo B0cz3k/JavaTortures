@@ -5,17 +5,13 @@
 package com.lukaszborak.javaproject1;
 
 import java.awt.Color;
-import java.awt.Image;
 import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
 public class MainPage extends javax.swing.JFrame {
-    private Simulation simulation;
+    private final Simulation simulation;
 
     public MainPage(Simulation sim) {
         this.simulation = sim;
@@ -83,13 +79,6 @@ public class MainPage extends javax.swing.JFrame {
         String selectedValue = MediaList.getSelectedValue();
         PrintDetails(simulation.getDetails(selectedValue));
     }
-    private void printThumbnail(String filename) {
-        if (filename != null) {
-            System.out.println(filename);
-            //ImageIcon icon = new ImageIcon(getClass().getResource("/com/lukaszborak/javaproject1/" + filename));
-            //thumbnail.setIcon(icon);
-        }
-    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -125,7 +114,6 @@ public class MainPage extends javax.swing.JFrame {
         ChannelsScrollPane = new javax.swing.JScrollPane();
         ChannelsList = new javax.swing.JList<>();
         SearchBar = new javax.swing.JTextField();
-        thumbnail = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Details = new javax.swing.JTextArea();
         NavigationPanel = new javax.swing.JPanel();
@@ -442,13 +430,12 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        thumbnail.setMaximumSize(new java.awt.Dimension(200, 70));
-        thumbnail.setMinimumSize(new java.awt.Dimension(200, 70));
-        thumbnail.setPreferredSize(new java.awt.Dimension(200, 70));
-
+        Details.setEditable(false);
         Details.setColumns(20);
         Details.setLineWrap(true);
         Details.setRows(5);
+        Details.setText("Entity details will appear here...");
+        Details.setAutoscrolls(false);
         jScrollPane1.setViewportView(Details);
 
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
@@ -461,11 +448,7 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(DataTab)
                     .addComponent(SearchBar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
-                    .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addComponent(thumbnail, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                 .addContainerGap())
         );
         MainPanelLayout.setVerticalGroup(
@@ -475,11 +458,8 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(SearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DataTab, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
-                    .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addComponent(thumbnail, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)))
+                    .addComponent(jScrollPane1)
+                    .addComponent(DataTab, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -581,6 +561,7 @@ public class MainPage extends javax.swing.JFrame {
         getContentPane().add(NavigationPanel, java.awt.BorderLayout.PAGE_START);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
         
     private void SearchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchBarKeyReleased
@@ -632,7 +613,6 @@ public class MainPage extends javax.swing.JFrame {
     private void MediaListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_MediaListValueChanged
         if (!evt.getValueIsAdjusting()) {
             String selectedValue = MediaList.getSelectedValue();
-            printThumbnail(simulation.getThumbnail(selectedValue));
             PrintDetails(simulation.getDetails(selectedValue));
         }
     }//GEN-LAST:event_MediaListValueChanged
@@ -640,7 +620,6 @@ public class MainPage extends javax.swing.JFrame {
     private void UsersListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_UsersListValueChanged
         if (!evt.getValueIsAdjusting()) {
             String selectedValue = UsersList.getSelectedValue();
-            printThumbnail(simulation.getThumbnail(selectedValue));
             PrintDetails(simulation.getDetails(selectedValue));
         }
     }//GEN-LAST:event_UsersListValueChanged
@@ -764,6 +743,5 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel simStatus;
-    private javax.swing.JLabel thumbnail;
     // End of variables declaration//GEN-END:variables
 }

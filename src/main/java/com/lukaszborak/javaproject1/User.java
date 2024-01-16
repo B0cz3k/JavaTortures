@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 class User implements Runnable, Serializable {
-    private final Simulation simulation;
+    private Simulation simulation;
     private final String thumbnail;
     private final String name;
     private final Date joinDate;
@@ -37,6 +37,9 @@ class User implements Runnable, Serializable {
         this.queue = new LinkedList<>();
     }
 
+    public void updateSimulation(Simulation sim) {
+        this.simulation = sim;
+    }
     public void subscribeToChannel(Channel channel) {
         if (!this.followingChannels.contains(channel)) {
             this.followingChannels.add(channel);
